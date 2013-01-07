@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportResource;
  * @author lanyonm
  */
 @Configuration
-@ImportResource("classpath:org/mybatis/spring/sample/applicationContext-infrastructure.xml")
+@ImportResource("classpath:org/mybatis/spring/sample/config/applicationContext-infrastructure.xml")
 @EnableMyBatisMapperScanner("org.mybatis.spring.sample.dao")
 public class AppConfig1 {
 
