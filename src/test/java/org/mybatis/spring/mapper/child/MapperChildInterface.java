@@ -19,10 +19,10 @@ import org.mybatis.spring.mapper.MapperInterface;
 import org.springframework.stereotype.Component;
 
 /**
+ * interface for MapperScannerPostProcessor - tests subpackage search
+ * 
  * @version $Id$
  */
-// interface for MapperScannerPostProcessor tests
-// tests subpackage search
 @Component
 public interface MapperChildInterface extends MapperInterface {
   public void childMethod();
