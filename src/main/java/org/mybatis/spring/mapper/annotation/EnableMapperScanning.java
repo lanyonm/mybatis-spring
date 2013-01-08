@@ -1,5 +1,6 @@
 package org.mybatis.spring.mapper.annotation;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -52,7 +53,7 @@ import org.springframework.context.annotation.Import;
 @Target(ElementType.TYPE)
 @Documented
 @Import(MapperBeanRegistrar.class)
-public @interface EnableMyBatisMapperScanner {
+public @interface EnableMapperScanning {
 
 	/**
 	 * Alias for the {@link #basePackages()} attribute.
@@ -60,7 +61,7 @@ public @interface EnableMyBatisMapperScanner {
 	 * {@code @EnableMyBatisMapperScanner("org.my.pkg")} instead of
 	 * {@code @EnableMyBatisMapperScanner(basePackages={"org.my.pkg"})}.
 	 */
-	String[] value() default {};
+  String[] value() default {};
 
 	/**
 	 * Base packages to scan for MyBatis interfaces. Note that only interfaces
@@ -68,4 +69,25 @@ public @interface EnableMyBatisMapperScanner {
 	 * ignored.
 	 */
 	String[] basePackages() default {};
+	
+  /**
+   * This property specifies the annotation that the scanner will search for.
+   * <p>
+   * The scanner will register all interfaces in the base package that also have the
+   * specified annotation.
+   * <p>
+   * Note this can be combined with markerInterface.
+   */
+  Class<? extends Annotation> annotationClass() default NoAnnotation.class;
+
+  /**
+   * This property specifies the parent that the scanner will search for.
+   * <p>
+   * The scanner will register all interfaces in the base package that also have the
+   * specified interface class as a parent.
+   * <p>
+   * Note this can be combined with annotationClass.
+   */
+  Class<?> markerInterface() default NoInterface.class;
+	
 }

@@ -89,8 +89,7 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
 	 * interfaces or just for those that extends a markerInterface or/and those annotated with
 	 * the annotationClass
 	 */
-	@Override
-	protected void registerDefaultFilters() {
+	protected void registerFilters() {
 		boolean acceptAllInterfaces = true;
 
 		// if specified, use the given annotation and / or marker interface

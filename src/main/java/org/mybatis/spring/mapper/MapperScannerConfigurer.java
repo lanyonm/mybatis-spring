@@ -274,7 +274,7 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
     scanner.setSqlSessionFactoryBeanName(this.sqlSessionFactoryBeanName);
     scanner.setSqlSessionTemplateBeanName(this.sqlSessionTemplateBeanName);
     scanner.setResourceLoader(this.applicationContext);
-    scanner.registerDefaultFilters();
+    scanner.registerFilters();
     scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
   }
 
