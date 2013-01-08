@@ -22,8 +22,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.mapper.annotation.EnableMapperScanning;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.config.ConstructorArgumentValues;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -156,6 +159,27 @@ public final class EnableMapperScanningTest {
     }
   }
 
+  @Test
+  public void testScanWithExplicitSqlSessionTemplate() throws Exception {
+    GenericBeanDefinition definition = new GenericBeanDefinition();
+    definition.setBeanClass(SqlSessionTemplate.class);
+    ConstructorArgumentValues constructorArgs = new ConstructorArgumentValues();
+    constructorArgs.addGenericArgumentValue(new RuntimeBeanReference("sqlSessionFactory"));
+    definition.setConstructorArgumentValues(constructorArgs);
+    applicationContext.registerBeanDefinition("sqlSessionTemplate", definition);
+
+    applicationContext.register(AppConfigWithSqlSessionTemplate.class);
+    
+    startContext();
+
+    // all interfaces with methods should be loaded
+    applicationContext.getBean("mapperInterface");
+    applicationContext.getBean("mapperSubinterface");
+    applicationContext.getBean("mapperChildInterface");
+    applicationContext.getBean("annotatedMapper");
+    
+  }
+
   @Configuration
   @EnableMapperScanning("org.mybatis.spring.mapper")
   public static class AppConfigWithPackageScan {
@@ -174,6 +198,11 @@ public final class EnableMapperScanningTest {
   @Configuration
   @EnableMapperScanning(basePackages = "org.mybatis.spring.mapper", annotationClass = Component.class, markerInterface = MapperInterface.class)
   public static class AppConfigWithMarkerInterfaceAndAnnotation {
+  }
+
+  @Configuration
+  @EnableMapperScanning(basePackages = "org.mybatis.spring.mapper", sqlSessionTemplateBeanName = "sqlSessionTemplate")
+  public static class AppConfigWithSqlSessionTemplate {
   }
 
 }

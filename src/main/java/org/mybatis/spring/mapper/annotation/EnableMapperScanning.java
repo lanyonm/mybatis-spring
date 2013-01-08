@@ -78,7 +78,7 @@ public @interface EnableMapperScanning {
    * <p>
    * Note this can be combined with markerInterface.
    */
-  Class<? extends Annotation> annotationClass() default NoAnnotation.class;
+  Class<? extends Annotation> annotationClass() default Annotation.class;
 
   /**
    * This property specifies the parent that the scanner will search for.
@@ -88,6 +88,28 @@ public @interface EnableMapperScanning {
    * <p>
    * Note this can be combined with annotationClass.
    */
-  Class<?> markerInterface() default NoInterface.class;
+  Class<?> markerInterface() default Class.class;
 	
+  /**
+   * Specifies which {@code SqlSessionTemplate} to use in the case that there is
+   * more than one in the spring context. Usually this is only needed when you
+   * have more than one datasource.
+   * <p>
+   * Note bean names are used, not bean references. This is because the scanner
+   * loads early during the start process and it is too early to build mybatis
+   * object instances.
+   */
+  String sqlSessionTemplateBeanName() default "";
+
+  /**
+   * Specifies which {@code SqlSessionFactory} to use in the case that there is
+   * more than one in the spring context. Usually this is only needed when you
+   * have more than one datasource.
+   * <p>
+   * Note bean names are used, not bean references. This is because the scanner
+   * loads early during the start process and it is too early to build mybatis
+   * object instances.
+   */
+  String sqlSessionFactoryBeanName() default "";
+
 }

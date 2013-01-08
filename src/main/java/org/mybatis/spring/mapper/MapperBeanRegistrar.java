@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.mapper.annotation.EnableMapperScanning;
-import org.mybatis.spring.mapper.annotation.NoAnnotation;
-import org.mybatis.spring.mapper.annotation.NoInterface;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -25,7 +23,7 @@ import org.springframework.util.StringUtils;
  * @version $Id$
  */
 public class MapperBeanRegistrar implements ImportBeanDefinitionRegistrar {
-  
+
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
     AnnotationAttributes annoAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableMapperScanning.class.getName()));
 
@@ -42,12 +40,20 @@ public class MapperBeanRegistrar implements ImportBeanDefinitionRegistrar {
     }
     MapperScanner scanner = new MapperScanner(registry, false);
     Class<? extends Annotation> annotationClass = annoAttrs.getClass("annotationClass");
-    if (!NoAnnotation.class.equals(annotationClass)) {
+    if (!Annotation.class.equals(annotationClass)) {
       scanner.setAnnotationClass(annotationClass);
     }
     Class<?> markerInterface = annoAttrs.getClass("markerInterface");
-    if (!NoInterface.class.equals(markerInterface)) {
+    if (!Class.class.equals(markerInterface)) {
       scanner.setMarkerInterface(markerInterface);
+    }
+    String sqlSessionTemplateBeanName = annoAttrs.getString("sqlSessionTemplateBeanName");
+    if (StringUtils.hasText(sqlSessionTemplateBeanName)) {
+      scanner.setSqlSessionTemplateBeanName(sqlSessionTemplateBeanName);
+    }
+    String sqlSessionFactoryBeanName = annoAttrs.getString("sqlSessionFactoryBeanName");
+    if (StringUtils.hasText(sqlSessionFactoryBeanName)) {
+      scanner.setSqlSessionFactoryBeanName(sqlSessionFactoryBeanName);
     }
     scanner.registerFilters();
     scanner.doScan(StringUtils.toStringArray(basePackages));
