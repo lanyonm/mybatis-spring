@@ -15,6 +15,34 @@ import org.springframework.context.annotation.Import;
  * Config. It performs when same work as {@link MapperScannerConfigurer} via
  * {@link MapperBeanRegistrar}.
  * 
+ * <p>Configuration example:</p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;EnableMyBatisMapperScanner("org.my.pkg.persistence")
+ * public class AppConfig {
+ * 
+ *   &#064;Bean
+ *   public DataSource dataSource() {
+ *     return new EmbeddedDatabaseBuilder()
+ *              .setType(EmbeddedDatabaseType.H2)
+ *              .build();
+ *   }
+ * 
+ *   &#064;Bean
+ *   public DataSourceTransactionManager transactionManager() {
+ *     return new DataSourceTransactionManager(dataSource());
+ *   }
+ * 
+ *   &#064;Bean
+ *   public SqlSessionFactory sqlSessionFactory() throws Exception {
+ *     SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+ *     sessionFactory.setDataSource(dataSource());
+ *     sessionFactory.setTypeAliasesPackage("org.my.pkg.domain");
+ *     return sessionFactory.getObject();
+ *   }
+ * }
+ * </pre>
+ * 
  * @author lanyonm
  * @since 1.1.2
  * @see MapperBeanRegistrar
