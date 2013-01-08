@@ -1,7 +1,8 @@
 package org.mybatis.spring.sample;
 
 import org.mybatis.spring.mapper.annotation.EnableMyBatisMapperScanner;
-import org.mybatis.spring.sample.config.AppConfig2;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
@@ -12,7 +13,12 @@ import org.springframework.test.context.ContextConfiguration;
  * @since 1.1.2
  * @version $Id$
  */
-@ContextConfiguration(classes = { AppConfig2.class })
+@ContextConfiguration
 public class SampleEnableAnnotationBasePackageTest extends AbstractSampleTest {
 
+	@Configuration
+	@ImportResource("classpath:org/mybatis/spring/sample/config/applicationContext-infrastructure.xml")
+	@EnableMyBatisMapperScanner(basePackages = {"org.mybatis.spring.sample.dao"})
+	static class AppConfig {
+	}
 }
