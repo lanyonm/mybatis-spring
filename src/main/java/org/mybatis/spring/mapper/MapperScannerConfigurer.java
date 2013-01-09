@@ -1,5 +1,5 @@
 /*
- *    Copyright 2010-2012 The MyBatis Team
+ *    Copyright 2010-2013 The MyBatis Team
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -106,6 +106,9 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
   private String beanName;
 
   private boolean processPropertyPlaceHolders;
+  
+  private BeanNameGenerator beanNameGenerator;
+
   
   /**
    * This property lets you set the base package for your mapper interface files.
@@ -245,6 +248,26 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
   }
 
   /**
+   * Gets beanNameGenerator to be used while running the scanner
+   * 
+   * @return the beanNameGenerator BeanNameGenerator that has been configured
+   * @since 1.1.2
+   */
+  public BeanNameGenerator getBeanNameGenerator() {
+    return beanNameGenerator;
+  }
+
+  /**
+   * Sets beanNameGenerator to be used while running the scanner
+   * 
+   * @param beanNameGenerator the beanNameGenerator to set
+   * @since 1.1.2
+   */
+  public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
+    this.beanNameGenerator = beanNameGenerator;
+  }
+
+  /**
    * {@inheritDoc}
    */
   public void afterPropertiesSet() throws Exception {
@@ -264,7 +287,7 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
     if (this.processPropertyPlaceHolders) {
       processPropertyPlaceHolders();
     }
-    
+
     MapperScanner scanner = new MapperScanner(registry, false);
     scanner.setAddToConfig(this.addToConfig);
     scanner.setAnnotationClass(this.annotationClass);
@@ -274,6 +297,7 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
     scanner.setSqlSessionFactoryBeanName(this.sqlSessionFactoryBeanName);
     scanner.setSqlSessionTemplateBeanName(this.sqlSessionTemplateBeanName);
     scanner.setResourceLoader(this.applicationContext);
+    scanner.setBeanNameGenerator(this.beanNameGenerator);
     scanner.registerFilters();
     scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
   }

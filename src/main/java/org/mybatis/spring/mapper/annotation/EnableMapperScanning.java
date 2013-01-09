@@ -70,26 +70,26 @@ import org.springframework.context.annotation.Import;
 @Import(MapperBeanRegistrar.class)
 public @interface EnableMapperScanning {
 
-	/**
-	 * Alias for the {@link #basePackages()} attribute.
-	 * Allows for more concise annotation declarations e.g.:
-	 * {@code @EnableMyBatisMapperScanner("org.my.pkg")} instead of
-	 * {@code @EnableMyBatisMapperScanner(basePackages={"org.my.pkg"})}.
-	 */
+  /**
+   * Alias for the {@link #basePackages()} attribute. Allows for more concise
+   * annotation declarations e.g.:
+   * {@code @EnableMyBatisMapperScanner("org.my.pkg")} instead of {@code
+   * @EnableMyBatisMapperScanner(basePackages= "org.my.pkg"})}.
+   */
   String[] value() default {};
 
-	/**
-	 * Base packages to scan for MyBatis interfaces. Note that only interfaces
-	 * with at least one method will be registered; concrete classes will be
-	 * ignored.
-	 */
-	String[] basePackages() default {};
-	
+  /**
+   * Base packages to scan for MyBatis interfaces. Note that only interfaces
+   * with at least one method will be registered; concrete classes will be
+   * ignored.
+   */
+  String[] basePackages() default {};
+
   /**
    * This property specifies the annotation that the scanner will search for.
    * <p>
-   * The scanner will register all interfaces in the base package that also have the
-   * specified annotation.
+   * The scanner will register all interfaces in the base package that also have
+   * the specified annotation.
    * <p>
    * Note this can be combined with markerInterface.
    */
@@ -98,13 +98,13 @@ public @interface EnableMapperScanning {
   /**
    * This property specifies the parent that the scanner will search for.
    * <p>
-   * The scanner will register all interfaces in the base package that also have the
-   * specified interface class as a parent.
+   * The scanner will register all interfaces in the base package that also have
+   * the specified interface class as a parent.
    * <p>
    * Note this can be combined with annotationClass.
    */
   Class<?> markerInterface() default Class.class;
-	
+
   /**
    * Specifies which {@code SqlSessionTemplate} to use in the case that there is
    * more than one in the spring context. Usually this is only needed when you

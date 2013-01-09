@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.mapper.child.MapperChildInterface;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -38,7 +39,7 @@ import org.springframework.stereotype.Component;
 import com.mockrunner.mock.jdbc.MockDataSource;
 
 /**
- * @version $Id$
+ * @version $Id: MapperScannerConfigurerTest.java 5575 2013-01-06 19:55:31Z eduardo.macarron $
  */
 public final class MapperScannerConfigurerTest {
   private GenericApplicationContext applicationContext;
@@ -53,7 +54,7 @@ public final class MapperScannerConfigurerTest {
     GenericBeanDefinition definition = new GenericBeanDefinition();
     definition.setBeanClass(MapperScannerConfigurer.class);
     definition.getPropertyValues().add("basePackage", "org.mybatis.spring.mapper");
-    applicationContext.registerBeanDefinition("mapperScannerConfigurer", definition);
+    applicationContext.registerBeanDefinition("mapperScanner", definition);
 
     setupSqlSessionFactory("sqlSessionFactory");
 
@@ -96,8 +97,26 @@ public final class MapperScannerConfigurerTest {
   }
 
   @Test
+  public void testNameGenerator() {
+    GenericBeanDefinition definition = new GenericBeanDefinition();
+    definition.setBeanClass(BeanNameGenerator.class);
+    applicationContext.registerBeanDefinition("beanNameGenerator", definition);
+
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
+        "beanNameGenerator", new RuntimeBeanReference("beanNameGenerator"));
+
+    startContext();
+
+    // only child inferfaces should be loaded and named with its class name
+    applicationContext.getBean(MapperInterface.class.getName());
+    applicationContext.getBean(MapperSubinterface.class.getName());
+    applicationContext.getBean(MapperChildInterface.class.getName());
+    applicationContext.getBean(AnnotatedMapper.class.getName());
+  }
+
+  @Test
   public void testMarkerInterfaceScan() {
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "markerInterface", MapperInterface.class);
 
     startContext();
@@ -112,7 +131,7 @@ public final class MapperScannerConfigurerTest {
 
   @Test
   public void testAnnotationScan() {
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "annotationClass", Component.class);
 
     startContext();
@@ -127,9 +146,9 @@ public final class MapperScannerConfigurerTest {
 
   @Test
   public void testMarkerInterfaceAndAnnotationScan() {
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "markerInterface", MapperInterface.class);
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "annotationClass", Component.class);
 
     startContext();
@@ -146,7 +165,7 @@ public final class MapperScannerConfigurerTest {
   public void testScanWithExplicitSqlSessionFactory() throws Exception {
     setupSqlSessionFactory("sqlSessionFactory2");
 
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "sqlSessionFactoryBeanName", "sqlSessionFactory2");
 
     testInterfaceScan();
@@ -161,7 +180,7 @@ public final class MapperScannerConfigurerTest {
     definition.setConstructorArgumentValues(constructorArgs);
     applicationContext.registerBeanDefinition("sqlSessionTemplate", definition);
 
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "sqlSessionTemplateBeanName", "sqlSessionTemplate");
 
     testInterfaceScan();
@@ -172,7 +191,7 @@ public final class MapperScannerConfigurerTest {
     setupSqlSessionFactory("sqlSessionFactory2");
 
     // use a property placeholder for the session factory name
-    applicationContext.getBeanDefinition("mapperScannerConfigurer").getPropertyValues().add(
+    applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
         "sqlSessionFactoryBeanName", "${sqlSessionFactoryBeanNameProperty}");
 
     Properties props = new java.util.Properties();
@@ -202,7 +221,7 @@ public final class MapperScannerConfigurerTest {
   @Test
   public void testScanWithPropertyPlaceholders() {
     GenericBeanDefinition definition = (GenericBeanDefinition) applicationContext
-        .getBeanDefinition("mapperScannerConfigurer");
+        .getBeanDefinition("mapperScanner");
 
     // use a property placeholder for basePackage
     definition.getPropertyValues().removePropertyValue("basePackage");
