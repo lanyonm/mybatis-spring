@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  * @since 1.2.0
  * @version $Id$
  */
-public class MapperBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
+public class MapperScannerBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
