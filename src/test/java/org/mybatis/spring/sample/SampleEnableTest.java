@@ -8,9 +8,8 @@ import org.springframework.test.context.ContextConfiguration;
 /**
  * Test to ensure that the {@link EnableMapperScanning#basePackages()}
  * annotation works as expected.
- * 
- * @author lanyonm
- * @since 1.1.2
+ *
+ * @since 1.2.0
  * @version $Id$
  */
 @ContextConfiguration

@@ -105,7 +105,7 @@ public final class MapperScannerConfigurerTest {
     applicationContext.registerBeanDefinition("beanNameGenerator", definition);
 
     applicationContext.getBeanDefinition("mapperScanner").getPropertyValues().add(
-        "beanNameGenerator", new RuntimeBeanReference("beanNameGenerator"));
+        "nameGenerator", new RuntimeBeanReference("beanNameGenerator"));
 
     startContext();
 

@@ -109,7 +109,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
   /**
    * Sets the ObjectFactory.
    * 
-   * @since 1.1.2
+   * @since 1.2.0
    * @param objectFactory
    */
   public void setObjectFactory(ObjectFactory objectFactory) {
@@ -119,7 +119,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
   /**
    * Sets the ObjectWrapperFactory.
    * 
-   * @since 1.1.2
+   * @since 1.2.0
    * @param objectWrapperFactory
    */
   public void setObjectWrapperFactory(ObjectWrapperFactory objectWrapperFactory) {
@@ -174,7 +174,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
    * Super class which domain objects have to extend to have a type alias created.
    * No effect if there is no package to scan configured.
    *
-   * @since 1.1.2
+   * @since 1.2.0
    *
    * @param typeAliasesSuperType super class for domain objects
    *

@@ -22,14 +22,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.mybatis.spring.mapper.MapperScannerBeanDefinitionRegistrar;
+import org.mybatis.spring.mapper.MapperScannerRegistrar;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.support.BeanNameGenerator;
+import org.springframework.context.annotation.AnnotationBeanNameGenerator;
 import org.springframework.context.annotation.Import;
 
 /**
  * Use this annotation to register MyBatis mapper interfaces when using Java
  * Config. It performs when same work as {@link MapperScannerConfigurer} via
- * {@link MapperScannerBeanDefinitionRegistrar}.
+ * {@link MapperScannerRegistrar}.
  * 
  * <p>Configuration example:</p>
  * <pre class="code">
@@ -59,15 +61,14 @@ import org.springframework.context.annotation.Import;
  * }
  * </pre>
  * 
- * @author lanyonm
- * @since 1.1.2
- * @see MapperScannerBeanDefinitionRegistrar
+ * @since 1.2.0
+ * @see MapperScannerRegistrar
  * @see MapperScannerConfigurer
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import(MapperScannerBeanDefinitionRegistrar.class)
+@Import(MapperScannerRegistrar.class)
 public @interface EnableMapperScanning {
 
   /**
@@ -126,5 +127,11 @@ public @interface EnableMapperScanning {
    * object instances.
    */
   String sqlSessionFactoryBeanName() default "";
+
+  /**
+   * The {@link BeanNameGenerator} class to be used for naming detected components
+   * within the Spring container.
+   */
+  Class<? extends BeanNameGenerator> nameGenerator() default AnnotationBeanNameGenerator.class;
 
 }

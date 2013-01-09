@@ -82,6 +82,7 @@ import org.springframework.util.StringUtils;
  * </pre>
  *
  * @see MapperFactoryBean
+ * @see MapperScanner
  * @version $Id$
  */
 public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProcessor, InitializingBean, ApplicationContextAware, BeanNameAware {
@@ -108,7 +109,7 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
 
   private boolean processPropertyPlaceHolders;
   
-  private BeanNameGenerator beanNameGenerator;
+  private BeanNameGenerator nameGenerator;
 
   
   /**
@@ -252,20 +253,20 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
    * Gets beanNameGenerator to be used while running the scanner
    * 
    * @return the beanNameGenerator BeanNameGenerator that has been configured
-   * @since 1.1.2
+   * @since 1.2.0
    */
-  public BeanNameGenerator getBeanNameGenerator() {
-    return beanNameGenerator;
+  public BeanNameGenerator getNameGenerator() {
+    return nameGenerator;
   }
 
   /**
    * Sets beanNameGenerator to be used while running the scanner
    * 
-   * @param beanNameGenerator the beanNameGenerator to set
-   * @since 1.1.2
+   * @param nameGenerator the beanNameGenerator to set
+   * @since 1.2.0
    */
-  public void setBeanNameGenerator(BeanNameGenerator beanNameGenerator) {
-    this.beanNameGenerator = beanNameGenerator;
+  public void setNameGenerator(BeanNameGenerator nameGenerator) {
+    this.nameGenerator = nameGenerator;
   }
 
   /**
@@ -298,7 +299,7 @@ public class MapperScannerConfigurer implements BeanDefinitionRegistryPostProces
     scanner.setSqlSessionFactoryBeanName(this.sqlSessionFactoryBeanName);
     scanner.setSqlSessionTemplateBeanName(this.sqlSessionTemplateBeanName);
     scanner.setResourceLoader(this.applicationContext);
-    scanner.setBeanNameGenerator(this.beanNameGenerator);
+    scanner.setBeanNameGenerator(this.nameGenerator);
     scanner.registerFilters();
     scanner.scan(StringUtils.tokenizeToStringArray(this.basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
   }

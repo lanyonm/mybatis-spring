@@ -46,13 +46,13 @@ import org.springframework.util.StringUtils;
  * 
  * <p>
  * This functionality was previously a private class of
- * {@link MapperScannerConfigurer}, but was broken out in version 1.1.2.
+ * {@link MapperScannerConfigurer}, but was broken out in version 1.2.0.
  * </p>
  * 
  * @see MapperFactoryBean
  * @see MapperScannerConfigurer
  * @see MapperRegistry
- * @since 1.1.2
+ * @since 1.2.0
  * @version $Id$
  */
 class MapperScanner extends ClassPathBeanDefinitionScanner {
@@ -171,7 +171,7 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
         definition.getPropertyValues().add("addToConfig", this.addToConfig);
 
         boolean explicitFactoryUsed = false;
-        if (StringUtils.hasLength(this.sqlSessionFactoryBeanName)) {
+        if (StringUtils.hasText(this.sqlSessionFactoryBeanName)) {
           definition.getPropertyValues().add("sqlSessionFactory", new RuntimeBeanReference(this.sqlSessionFactoryBeanName));
           explicitFactoryUsed = true;
         } else if (this.sqlSessionFactory != null) {
@@ -179,7 +179,7 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
           explicitFactoryUsed = true;
         }
 
-        if (StringUtils.hasLength(this.sqlSessionTemplateBeanName)) {
+        if (StringUtils.hasText(this.sqlSessionTemplateBeanName)) {
           if (explicitFactoryUsed) {
             logger.warn("Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.");
           }
@@ -208,7 +208,8 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
     if (super.checkCandidate(beanName, beanDefinition)) {
       return true;
     } else {
-      logger.warn("Skipping MapperFactoryBean with name '" + beanName + "' and '" + beanDefinition.getBeanClassName() + "' mapperInterface"
+      logger.warn("Skipping MapperFactoryBean with name '" + beanName 
+          + "' and '" + beanDefinition.getBeanClassName() + "' mapperInterface"
           + ". Bean already defined with the same name!");
       return false;
     }
