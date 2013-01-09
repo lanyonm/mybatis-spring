@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
  * @version $Id$
  */
 @ContextConfiguration
-public class SampleEnableAnnotationBasePackageTest extends AbstractSampleTest {
+public class SampleEnableTest extends AbstractSampleTest {
 
 	@Configuration
 	@ImportResource("classpath:org/mybatis/spring/sample/config/applicationContext-infrastructure.xml")

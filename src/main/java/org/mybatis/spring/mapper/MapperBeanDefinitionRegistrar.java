@@ -34,14 +34,14 @@ import org.springframework.util.StringUtils;
  * 
  * @author lanyonm
  * @see MapperFactoryBean
- * @since 1.1.2
+ * @since 1.2.0
  * @version $Id$
  */
-public class MapperBeanRegistrar implements ImportBeanDefinitionRegistrar {
+public class MapperBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 
   public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-    AnnotationAttributes annoAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableMapperScanning.class.getName()));
 
+    AnnotationAttributes annoAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableMapperScanning.class.getName()));
     List<String> basePackages = new ArrayList<String>();
     for (String pkg : annoAttrs.getStringArray("value")) {
       if (StringUtils.hasText(pkg)) {
