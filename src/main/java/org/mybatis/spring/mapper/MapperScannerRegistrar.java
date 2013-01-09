@@ -19,7 +19,7 @@ import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mybatis.spring.mapper.annotation.EnableMapperScanning;
+import org.mybatis.spring.annotation.EnableMapperScanning;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;

@@ -1,6 +1,6 @@
 package org.mybatis.spring.sample;
 
-import org.mybatis.spring.mapper.annotation.EnableMapperScanning;
+import org.mybatis.spring.annotation.EnableMapperScanning;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ContextConfiguration;
