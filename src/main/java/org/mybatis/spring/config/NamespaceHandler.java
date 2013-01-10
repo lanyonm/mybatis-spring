@@ -15,7 +15,6 @@
  */
 package org.mybatis.spring.config;
 
-import org.mybatis.spring.mapper.MapperScannerBeanDefinitionParser;
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
 /**

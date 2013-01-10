@@ -23,6 +23,8 @@ import java.util.Set;
 import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScannerRegistrar;
+import org.mybatis.spring.config.MapperScannerBeanDefinitionParser;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -51,11 +53,13 @@ import org.springframework.util.StringUtils;
  * 
  * @see MapperFactoryBean
  * @see MapperScannerConfigurer
+ * @see MapperScannerRegistrar
+ * @see MapperScannerBeanDefinitionParser
  * @see MapperRegistry
  * @since 1.2.0
  * @version $Id$
  */
-class MapperScanner extends ClassPathBeanDefinitionScanner {
+public class MapperScanner extends ClassPathBeanDefinitionScanner {
 
   private boolean addToConfig = true;
   private Class<? extends Annotation> annotationClass;
@@ -106,7 +110,7 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
    * for all interfaces or just for those that extends a markerInterface or/and
    * those annotated with the annotationClass
    */
-  protected void registerFilters() {
+  public void registerFilters() {
     boolean acceptAllInterfaces = true;
 
     // if specified, use the given annotation and / or marker interface
@@ -150,7 +154,7 @@ class MapperScanner extends ClassPathBeanDefinitionScanner {
    * MapperFactoryBeans
    */
   @Override
-  protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
+  public Set<BeanDefinitionHolder> doScan(String... basePackages) {
     Set<BeanDefinitionHolder> beanDefinitions = super.doScan(basePackages);
 
     if (beanDefinitions.isEmpty()) {

@@ -1,7 +1,9 @@
-package org.mybatis.spring.mapper;
+package org.mybatis.spring.config;
 
 import java.lang.annotation.Annotation;
 
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScanner;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanNameGenerator;
@@ -31,18 +33,18 @@ public class MapperScannerBeanDefinitionParser implements BeanDefinitionParser {
     final XmlReaderContext readerContext = parserContext.getReaderContext();
     scanner.setResourceLoader(readerContext.getResourceLoader());
     try {
-      final String annotationClassName = element.getAttribute("annotationClass");
+      final String annotationClassName = element.getAttribute("annotation");
       if (StringUtils.hasText(annotationClassName)) {
         @SuppressWarnings("unchecked")
         final Class<? extends Annotation> markerInterface = (Class<? extends Annotation>) classLoader.loadClass(annotationClassName);
         scanner.setAnnotationClass(markerInterface);
       }
-      final String markerInterfaceClassName = element.getAttribute("markerInterface");
+      final String markerInterfaceClassName = element.getAttribute("marker-interface");
       if (StringUtils.hasText(markerInterfaceClassName)) {
         final Class<?> markerInterface = classLoader.loadClass(markerInterfaceClassName);
         scanner.setMarkerInterface(markerInterface);
       }
-      final String nameGeneratorClassName = element.getAttribute("nameGenerator");
+      final String nameGeneratorClassName = element.getAttribute("name-generator");
       if (StringUtils.hasText(nameGeneratorClassName)) {
         final Class<?> nameGeneratorClass = classLoader.loadClass(nameGeneratorClassName);
         final BeanNameGenerator nameGenerator = BeanUtils.instantiateClass((Class<?>) nameGeneratorClass, BeanNameGenerator.class);
@@ -56,7 +58,7 @@ public class MapperScannerBeanDefinitionParser implements BeanDefinitionParser {
     final String sqlSessionFactoryBeanName = element.getAttribute("sqlSessionFactoryBeanName");
     scanner.setSqlSessionFactoryBeanName(sqlSessionFactoryBeanName);
     scanner.registerFilters();
-    final String basePackage = element.getAttribute("basePackage");
+    final String basePackage = element.getAttribute("base-package");
     scanner.scan(StringUtils.tokenizeToStringArray(basePackage, ConfigurableApplicationContext.CONFIG_LOCATION_DELIMITERS));
     return null;
   }

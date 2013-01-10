@@ -15,7 +15,7 @@
 			]]></xsd:documentation>
 		</xsd:annotation>
 		<xsd:complexType>
-			<xsd:attribute name="basePackage" type="xsd:string"
+			<xsd:attribute name="base-package" type="xsd:string"
 				use="required">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
@@ -23,7 +23,7 @@
 					]]></xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="markerInterface" type="xsd:string">
+			<xsd:attribute name="marker-interface" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
 	The scanner will register all interfaces in the base package that also have the specified annotation.
@@ -35,7 +35,7 @@
 					</xsd:appinfo>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="annotationClass" type="xsd:string">
+			<xsd:attribute name="annotation" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
 	The scanner will register all interfaces in the base package that also have the specified interface class as a parent.
@@ -48,21 +48,21 @@
 					</xsd:appinfo>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="sqlSessionTemplateBeanName" type="xsd:string">
+			<xsd:attribute name="template" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
 	Specifies which {@code SqlSessionTemplate} to use in the case that there is more than one in the spring context. Usually this is only needed when you have more than one datasource.
 					]]></xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="sqlSessionFactoryBeanName" type="xsd:string">
+			<xsd:attribute name="factory" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
 	Specifies which {@code SqlSessionFactory} to use in the case that there is more than one in the spring context. Usually this is only needed when you have more than one datasource.
 	                ]]></xsd:documentation>
 				</xsd:annotation>
 			</xsd:attribute>
-			<xsd:attribute name="nameGenerator" type="xsd:string">
+			<xsd:attribute name="name-generator" type="xsd:string">
 				<xsd:annotation>
 					<xsd:documentation><![CDATA[
 	The fully-qualified class name of the BeanNameGenerator to be used for naming detected components.
