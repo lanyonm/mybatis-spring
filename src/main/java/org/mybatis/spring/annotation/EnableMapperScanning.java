@@ -22,6 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerRegistrar;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.support.BeanNameGenerator;
@@ -63,7 +64,7 @@ import org.springframework.context.annotation.Import;
  * 
  * @since 1.2.0
  * @see MapperScannerRegistrar
- * @see MapperScannerConfigurer
+ * @see MapperFactoryBean
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
