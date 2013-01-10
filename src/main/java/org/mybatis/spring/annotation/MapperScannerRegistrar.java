@@ -53,7 +53,9 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
 
     AnnotationAttributes annoAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableMapperScanning.class.getName()));
     MapperScanner scanner = new MapperScanner(registry, false);
-    scanner.setResourceLoader(resourceLoader);
+    if (resourceLoader != null) { // this check is needed in Spring 3.1
+      scanner.setResourceLoader(resourceLoader);
+    }
     Class<? extends Annotation> annotationClass = annoAttrs.getClass("annotationClass");
     if (!Annotation.class.equals(annotationClass)) {
       scanner.setAnnotationClass(annotationClass);
