@@ -6,14 +6,14 @@ To reiterate, the purpose of this repo is to share a proposed contribution.  If 
 # Java Config
 With the release of Spring 3.1, ``@Enable`` annotations are the official way to configure support when using Java configuration.  Please see [this discussion](https://jira.springsource.org/browse/SPR-9464?focusedCommentId=79600&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-79600) for more detail.
 
-## @EnableMyBatisMapperScanner
-This class simply mimics the functionality of the ``MapperScannerConfigurer`` with a subset of the configuration options.
+## @EnableMapperScanning
+This class simply uses ``MapperScannerRegistrar`` to mimic the functionality of the ``MapperScannerConfigurer``.
 
 ## Example
 Here's how the annotation could be used with ``@Configuration``:
 
     @Configuration
-    @EnableMyBatisMapperScanner("org.my.pkg.persistence")
+    @EnableMapperScanning("org.my.pkg.persistence")
     public class AppConfig {
       
         @Bean
