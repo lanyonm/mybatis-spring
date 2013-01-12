@@ -20,11 +20,8 @@ import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Set;
 
-import org.apache.ibatis.binding.MapperRegistry;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScannerRegistrar;
-import org.mybatis.spring.config.MapperScannerBeanDefinitionParser;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -52,10 +49,6 @@ import org.springframework.util.StringUtils;
  * </p>
  * 
  * @see MapperFactoryBean
- * @see MapperScannerConfigurer
- * @see MapperScannerRegistrar
- * @see MapperScannerBeanDefinitionParser
- * @see MapperRegistry
  * @since 1.2.0
  * @version $Id$
  */
