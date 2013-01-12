@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.mybatis.spring.mapper;
+package org.mybatis.spring.annotation;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.EnableMapperScanning;
+import org.mybatis.spring.mapper.MapperInterface;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
@@ -35,6 +36,10 @@ import org.springframework.stereotype.Component;
 import com.mockrunner.mock.jdbc.MockDataSource;
 
 /**
+ * Test for the MapperScannerRegistrar.
+ * <p>
+ * This test works fine with Spring 3.1 and 3.2 but with 3.1 the registrar is called twice.
+ * 
  * @version $Id$
  */
 public final class EnableMapperScanningTest {
