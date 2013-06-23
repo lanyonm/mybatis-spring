@@ -1,3 +1,7 @@
+This patch was accepted into the [MyBatis-Spring](https://github.com/mybatis/spring) project in version [1.2.0](http://mybatis.github.io/spring/changes-report.html#a1.2.0).
+
+
+
 # MyBatis-Spring [![Build Status](https://travis-ci.org/LanyonM/mybatis-spring.png?branch=master)](https://travis-ci.org/LanyonM/mybatis-spring)
 This project was forked from the [MyBatis-Spring](http://www.mybatis.org/spring/) project on January 3rd, 2013 for the purposes of contributing a Java Config ``@Enable`` annotation.  If you are interested in the MyBatis-Spring project, please use the Maven repos or get the latest [here](http://code.google.com/p/mybatis/source/checkout).
 
@@ -15,14 +19,14 @@ Here's how the annotation could be used with ``@Configuration``:
     @Configuration
     @EnableMapperScanning("org.my.pkg.persistence")
     public class AppConfig {
-      
+
         @Bean
         public DataSource dataSource() {
             return new EmbeddedDatabaseBuilder()
                      .setType(EmbeddedDatabaseType.H2)
                      .build();
         }
-        
+
         @Bean
         public SqlSessionFactory sqlSessionFactory() throws Exception {
             SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
