@@ -1,14 +1,13 @@
-This patch was accepted into the [MyBatis-Spring](https://github.com/mybatis/spring) project in version [1.2.0](http://mybatis.github.io/spring/changes-report.html#a1.2.0).
+> [!WARNING]
+> **This repository is no longer maintained** and has been archived. The patch it proposed was accepted into [MyBatis-Spring](https://github.com/mybatis/spring) in version [1.2.0](https://github.com/mybatis/spring/releases/tag/mybatis-spring-1.2.0). This copy dates from 2013, targets Spring 3.1, and its dependencies are out of date and have known vulnerabilities. Use the upstream project instead.
 
+# MyBatis-Spring
+This project was forked from the [MyBatis-Spring](https://mybatis.org/spring/) project on January 3rd, 2013 for the purposes of contributing a Java Config ``@Enable`` annotation. If you are interested in the MyBatis-Spring project, please use the Maven repos or get the latest [here](https://github.com/mybatis/spring).
 
-
-# MyBatis-Spring [![Build Status](https://travis-ci.org/LanyonM/mybatis-spring.png?branch=master)](https://travis-ci.org/LanyonM/mybatis-spring)
-This project was forked from the [MyBatis-Spring](http://www.mybatis.org/spring/) project on January 3rd, 2013 for the purposes of contributing a Java Config ``@Enable`` annotation.  If you are interested in the MyBatis-Spring project, please use the Maven repos or get the latest [here](http://code.google.com/p/mybatis/source/checkout).
-
-To reiterate, the purpose of this repo is to share a proposed contribution.  If you're interested in MyBatis-Spring integration, go [here](http://www.mybatis.org/spring/).
+To reiterate, the purpose of this repo is to share a proposed contribution.  If you're interested in MyBatis-Spring integration, go [here](https://mybatis.org/spring/).
 
 # Java Config
-With the release of Spring 3.1, ``@Enable`` annotations are the official way to configure support when using Java configuration.  Please see [this discussion](https://jira.springsource.org/browse/SPR-9464?focusedCommentId=79600&page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-79600) for more detail.
+With the release of Spring 3.1, ``@Enable`` annotations are the official way to configure support when using Java configuration.  Please see [this discussion](https://github.com/spring-projects/spring-framework/issues/14099) for more detail.
 
 ## @EnableMapperScanning
 This class simply uses ``MapperScannerRegistrar`` to mimic the functionality of the ``MapperScannerConfigurer``.
@@ -37,4 +36,4 @@ Here's how the annotation could be used with ``@Configuration``:
     }
 
 # Feedback
-Please feel free to give feedback/comments on this repo.
+This repository is archived and no longer accepts feedback. Please direct issues to [MyBatis-Spring](https://github.com/mybatis/spring/issues).
